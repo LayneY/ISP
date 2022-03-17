@@ -1,0 +1,12 @@
+version: "Swift version 5.5.3 (swift-5.5.3-RELEASE)"
+options: "b6dbc9f1f2090993cd3343fc6201ce6bfe2420969121a28b6bc94b04496468f1"
+build_start_time: [1647532021, 59340000]
+build_end_time: [1647532029, 605941057]
+inputs:
+  "/home/layne-yarbrough/Projects/ISP/Sources/ScenesShell/Background.swift": [1647531678, 467330932]
+  "/home/layne-yarbrough/Projects/ISP/Sources/ScenesShell/BackgroundLayer.swift": [1647531689, 126026630]
+  "/home/layne-yarbrough/Projects/ISP/Sources/ScenesShell/ForegroundLayer.swift": [1647531720, 402199745]
+  "/home/layne-yarbrough/Projects/ISP/Sources/ScenesShell/InteractionLayer.swift": [1647531736, 408241033]
+  "/home/layne-yarbrough/Projects/ISP/Sources/ScenesShell/MainScene.swift": [1647531745, 139172554]
+  "/home/layne-yarbrough/Projects/ISP/Sources/ScenesShell/ShellDirector.swift": [1647531763, 604913234]
+  "/home/layne-yarbrough/Projects/ISP/Sources/ScenesShell/main.swift": [1647531751, 362411022]
