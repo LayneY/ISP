@@ -8,11 +8,11 @@ import Igis
 
 class Background : RenderableEntity {
 
-    let sky: NewSkyscraper
+   // let sky :  NewSkyscraper
     
     init() {
 
-        sky = NewSkyscraper()
+     //   sky = NewSkyscraper()
         
           // Using a meaningful name can be helpful for debugging
           super.init(name:"Background")
@@ -32,8 +32,8 @@ class Background : RenderableEntity {
           canvas.render(gFill, ground)
 
           //render 3 skyscrapers 
-          sky.renderSkyscraper(x:100,y:400,color:Color(.red),window:Color(.yellow),height:400,canvas:canvas)
-          sky.renderSkyscraper(x:400,y:50,color:Color(.gray),window:Color(.black),height:750,canvas:canvas)
-          sky.renderSkyscraper(x:800,y:550,color:Color(.tomato),window:Color(.orange),height:250,canvas:canvas)
+       //   sky.renderSkyscraper(x:100,y:400,color:Color(.red),window:Color(.yellow),height:400,canvas:canvas)
+         // sky.renderSkyscraper(x:400,y:50,color:Color(.gray),window:Color(.black),height:750,canvas:canvas)
+         // sky.renderSkyscraper(x:800,y:550,color:Color(.tomato),window:Color(.orange),height:250,canvas:canvas)
       }
 }
