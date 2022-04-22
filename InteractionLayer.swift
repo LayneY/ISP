@@ -31,6 +31,8 @@ class InteractionLayer : Layer, KeyDownHandler {
           if key == "d" {
               character.moveForward()
               
+          }else if key == "a" {
+              character.moveBackward()
           }
       }
   }
