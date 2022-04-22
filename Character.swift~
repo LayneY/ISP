@@ -1,0 +1,50 @@
+import Igis
+import Scenes
+import Foundation
+
+class Character : RenderableEntity {
+
+    var character : Image
+    var character2 : Image
+    var frames : [Image]
+    var index = 0
+    
+    init() {
+        guard let imageURL = URL(string:"https://codermerlin.com/users/layne-yarbrough/ISPImages/character1-removebg-preview.png") else {
+            fatalError("character failed to load")
+        }
+
+        character = Image(sourceURL:imageURL)
+        character2 = Image(sourceURL:URL(string:"https://codermerlin.com/users/layne-yarbrough/ISPImages/character2-removebg-preview.png")!)
+
+        frames = []
+        frames.append(character)
+        frames.append(character2)
+        super.init(name: "Character")
+    }
+
+    override func setup(canvasSize:Size, canvas:Canvas) {
+        canvas.setup(character)
+        canvas.setup(character2)
+    }
+
+    override func render(canvas:Canvas) {
+        let clearRect = Rect(topLeft:Point(x:0, y:0), size:canvas.canvasSize!)
+        let clearRectangle = Rectangle(rect:clearRect, fillMode:.clear)
+        canvas.render(clearRectangle)
+        if frames[index].isReady {
+            canvas.render(frames[index])
+        }
+        
+    }
+
+    func moveForward() {
+        if index == 0 {
+            index = 1
+        }else{
+            index = 0
+        }
+        
+        
+    }
+}
