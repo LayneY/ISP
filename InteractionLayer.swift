@@ -9,6 +9,8 @@ import Igis
 
 class InteractionLayer : Layer, KeyDownHandler {
 
+    let platform = Platform(rect:Rect(size:Size(width:500, height:10)))
+
     let character = Character()
     
       init() {
@@ -16,10 +18,12 @@ class InteractionLayer : Layer, KeyDownHandler {
           super.init(name:"Interaction")
           insert(entity: character, at: .front)
 
+          insert(entity: platform, at: .front)
           // We insert our RenderableEntities in the constructor
 
       }
       override func preSetup(canvasSize:Size, canvas:Canvas) {
+          platform.move(to:Point(x: 0, y:canvasSize.height - 20))
           dispatcher.registerKeyDownHandler(handler:self)
       }
 

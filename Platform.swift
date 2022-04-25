@@ -1,13 +1,13 @@
 import Igis
 import Scenes
 
-class platform: RenderableEntity {
+class Platform: RenderableEntity {
     var rectangle: Rectangle
 
     init(rect:Rect) {
         rectangle = Rectangle(rect:rect, fillMode:.fillAndStroke)
 
-        super.innit(name:"Platform")
+        super.init(name:"Platform")
     }
 
     override func render(canvas:Canvas) {
