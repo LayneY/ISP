@@ -33,6 +33,9 @@ class InteractionLayer : Layer, KeyDownHandler {
               
           }else if key == "a" {
               character.moveBackward()
+          }else if code == "Space" {
+              character.jump()
           }
+          
       }
   }
