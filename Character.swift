@@ -20,13 +20,20 @@ class Character : RenderableEntity {
 
     var veloY = 0
 
+    var charY = 0
     var charX = 0
 
+    var destPoint : Point
+
+    var isJumping = false
+
+    let jumpVelocity = 7
+    
     init() {
         guard let imageURL = URL(string:"https://codermerlin.com/users/layne-yarbrough/ISPImages/character1-removebg-preview.png") else {
             fatalError("character failed to load")
         }
-
+        
         revFrames = []
         frames = []
         character = Image(sourceURL:imageURL)
@@ -62,7 +69,8 @@ class Character : RenderableEntity {
         }
         
         self.veloY = 2
-        
+        self.charY = 200
+        destPoint = Point(x:charX,y:charY)
         super.init(name: "Character")
     }
 
@@ -76,9 +84,9 @@ class Character : RenderableEntity {
     }
 
     override func render(canvas:Canvas) {
-        let clearRect = Rect(topLeft:Point(x:0, y:0), size:canvas.canvasSize!)
-        let clearRectangle = Rectangle(rect:clearRect, fillMode:.clear)
-        canvas.render(clearRectangle)
+        //let clearRect = Rect(topLeft:Point(x:0, y:0), size:canvas.canvasSize!)
+        //let clearRectangle = Rectangle(rect:clearRect, fillMode:.clear)
+        //canvas.render(clearRectangle)
         if forward {
             if index != 0 {
                 if frames[index].isReady {
@@ -115,7 +123,23 @@ class Character : RenderableEntity {
     }
 
     override func calculate(canvasSize:Size) {
-        
+        if isJumping && charY <= 204 {
+            if charY <= 125 {
+                veloY += self.jumpVelocity
+            }
+            
+            charY += veloY
+            destPoint = Point(x:charX, y:charY)
+            //print(charY)
+            frames[0].renderMode = .destinationPoint(destPoint)
+        }else{
+            charY = 204
+            destPoint = Point(x:charX, y:charY)
+            frames[0].renderMode = .destinationPoint(destPoint)
+            self.isJumping = false
+        }
+
+        let boundingRect = Rect(topLeft:Point(x:charX,y:charY), size:Size(width:133,height:146))
     }
 
     func increaseIndex() {
@@ -137,12 +161,12 @@ class Character : RenderableEntity {
     func moveForward() {
         increaseIndex()
 
-        frames[0].renderMode = .destinationPoint(Point(x:charX,y:30))
-        frames[1].renderMode = .destinationPoint(Point(x:charX+19,y:30))
-        frames[3].renderMode = .destinationPoint(Point(x:charX-2,y:30))
+        frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY))
+        frames[1].renderMode = .destinationPoint(Point(x:charX+19,y:charY))
+        frames[3].renderMode = .destinationPoint(Point(x:charX-2,y:charY))
         //frames[1].renderMode = .destinationPoint(Point(x:charX,y:30))
-        frames[2].renderMode = .destinationPoint(Point(x:charX+19,y:30))
-        frames[4].renderMode = .destinationPoint(Point(x:charX-2,y:30))
+        frames[2].renderMode = .destinationPoint(Point(x:charX+19,y:charY))
+        frames[4].renderMode = .destinationPoint(Point(x:charX-2,y:charY))
         charX += 10
         forward = true
     }
@@ -150,17 +174,24 @@ class Character : RenderableEntity {
     func moveBackward() {
         increaseRevIndex()
         
-        revFrames[0].renderMode = .destinationPoint(Point(x:charX,y:30))
-        revFrames[1].renderMode = .destinationPoint(Point(x:charX+46,y:30))
-        revFrames[3].renderMode = .destinationPoint(Point(x:charX+55,y:30))
+        revFrames[0].renderMode = .destinationPoint(Point(x:charX,y:charY))
+        revFrames[1].renderMode = .destinationPoint(Point(x:charX+46,y:charY))
+        revFrames[3].renderMode = .destinationPoint(Point(x:charX+55,y:charY))
         //revFrames[1].renderMode = .destinationPoint(Point(x:charX,y:30))
-        revFrames[2].renderMode = .destinationPoint(Point(x:charX+46,y:30))
-        revFrames[4].renderMode = .destinationPoint(Point(x:charX+55,y:30))
+        revFrames[2].renderMode = .destinationPoint(Point(x:charX+46,y:charY))
+        revFrames[4].renderMode = .destinationPoint(Point(x:charX+55,y:charY))
         charX -= 10
         forward = false
     }
 
     func jump() {
+        self.veloY = -self.jumpVelocity
+        self.isJumping = true
+    }
 
+    func setDestPoint(images:[Image], destPoint:Point) {
+        for img in images {
+            img.renderMode = .destinationPoint(destPoint)
+        }
     }
 }
