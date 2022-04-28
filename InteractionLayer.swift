@@ -10,12 +10,14 @@ import Igis
 class InteractionLayer : Layer, KeyDownHandler {
 
     let platform = Platform(rect:Rect(size:Size(width:500, height:10)))
-
-    let character = Character()
     
-      init() {
+    var character : Character
+    
+    init() {
+        self.character = Character(platforms:platform)
           // Using a meaningful name can be helpful for debugging
-          super.init(name:"Interaction")
+        super.init(name:"Interaction")
+        
           insert(entity: character, at: .front)
 
           insert(entity: platform, at: .front)              
@@ -23,7 +25,7 @@ class InteractionLayer : Layer, KeyDownHandler {
 
       }
       override func preSetup(canvasSize:Size, canvas:Canvas) {
-          platform.move(to:Point(x: 0, y:canvasSize.height - 20))
+          platform.move(to:Point(x: 0, y:350))
           dispatcher.registerKeyDownHandler(handler:self)
       }
 
@@ -42,5 +44,15 @@ class InteractionLayer : Layer, KeyDownHandler {
               character.jump()
           }
           
+      }
+
+      func isOnPlatform() -> Bool {
+          let plat1Rect = platform.getPlatformBoundingRect().containment(target:character.getBoundingRect())
+          let plat1Set : ContainmentSet = [.contact]
+          if plat1Set.isSubset(of:plat1Rect) {
+              return true
+          }else{
+              return false
+          }
       }
   }

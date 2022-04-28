@@ -23,13 +23,18 @@ class Character : RenderableEntity {
     var charY = 0
     var charX = 0
 
+    var lowestAllowableY = 0
+
     var destPoint : Point
 
     var isJumping = false
 
-    let jumpVelocity = 7
+    let jumpVelocity = 10
     
-    init() {
+    var boundingRect : Rect
+
+    var platforms : Platform
+    init(platforms:Platform) {
         guard let imageURL = URL(string:"https://codermerlin.com/users/layne-yarbrough/ISPImages/character1-removebg-preview.png") else {
             fatalError("character failed to load")
         }
@@ -67,10 +72,13 @@ class Character : RenderableEntity {
             revChar3 = Image(sourceURL:URL(string:"https://codermerlin.com/users/layne-yarbrough/ISPImages/character3back-removebg-preview.png")!)
             revFrames.append(revChar3)
         }
-        
-        self.veloY = 2
-        self.charY = 200
+       
+        self.charY = 210
+        self.lowestAllowableY = 200
+        self.veloY = self.jumpVelocity
         destPoint = Point(x:charX,y:charY)
+        self.boundingRect = Rect(topLeft:Point(x:0,y:0),size:Size(width:1,height:1))
+        self.platforms = platforms
         super.init(name: "Character")
     }
 
@@ -84,9 +92,9 @@ class Character : RenderableEntity {
     }
 
     override func render(canvas:Canvas) {
-        //let clearRect = Rect(topLeft:Point(x:0, y:0), size:canvas.canvasSize!)
-        //let clearRectangle = Rectangle(rect:clearRect, fillMode:.clear)
-        //canvas.render(clearRectangle)
+        let clearRect = Rect(topLeft:Point(x:0, y:0), size:canvas.canvasSize!)
+        let clearRectangle = Rectangle(rect:clearRect, fillMode:.clear)
+        canvas.render(clearRectangle)
         if forward {
             if index != 0 {
                 if frames[index].isReady {
@@ -123,8 +131,20 @@ class Character : RenderableEntity {
     }
 
     override func calculate(canvasSize:Size) {
-        if isJumping && charY <= 204 {
-            if charY <= 125 {
+        if !isOnPlatform() {
+            if charY <= self.lowestAllowableY - 150 {
+                veloY = self.jumpVelocity
+            }
+            charY += veloY
+            destPoint = Point(x:charX,y:charY)
+            frames[0].renderMode = .destinationPoint(destPoint)
+        }else if isOnPlatform() && veloY >= 5 {
+            
+            isJumping = false
+        }
+        /*
+        if isJumping && isOnPlatform() {
+            if charY <= self.lowestAllowableY - 125 {
                 veloY += self.jumpVelocity
             }
             
@@ -132,14 +152,15 @@ class Character : RenderableEntity {
             destPoint = Point(x:charX, y:charY)
             //print(charY)
             frames[0].renderMode = .destinationPoint(destPoint)
+//            self.isJumping = false
         }else{
             charY = 204
             destPoint = Point(x:charX, y:charY)
             frames[0].renderMode = .destinationPoint(destPoint)
             self.isJumping = false
-        }
-
-        let boundingRect = Rect(topLeft:Point(x:charX,y:charY), size:Size(width:133,height:146))
+        }**/
+        //print(isOnPlatform())
+        self.boundingRect = Rect(topLeft:Point(x:charX,y:charY), size:Size(width:133,height:146))
     }
 
     func increaseIndex() {
@@ -186,12 +207,39 @@ class Character : RenderableEntity {
 
     func jump() {
         self.veloY = -self.jumpVelocity
+        frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY-10))
+        charY -= 10
         self.isJumping = true
+
     }
 
     func setDestPoint(images:[Image], destPoint:Point) {
         for img in images {
             img.renderMode = .destinationPoint(destPoint)
+        }
+    }
+
+    func getBoundingRect() -> Rect {
+        return self.boundingRect
+    }
+
+    func isOnPlatform() -> Bool{
+        /*let plat1Rect = platforms.getPlatformBoundingRect().containment(target:getBoundingRect())
+        let plat1Set : ContainmentSet = [.contact, .beyondVertically]
+          if plat1Set.isSubset(of:plat1Rect) {
+              return true
+          }else{
+              return false
+              }**/
+        let plat1Rect = platforms.getPlatformBoundingRect()
+//        print("char")
+  //      print(getBoundingRect().topLeft.y + 146)
+    //    print("plat")
+      //  print(plat1Rect.topLeft.y)
+        if getBoundingRect().topLeft.x + 50 <= plat1Rect.topLeft.x + 500 && getBoundingRect().topLeft.y + 146 >= plat1Rect.topLeft.y {
+            return true
+        }else{
+            return false
         }
     }
 }
