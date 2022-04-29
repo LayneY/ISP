@@ -21,7 +21,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     let platform8 = Platform(rect:Rect(size:Size(width:100, height:50)))
     let platform9 = Platform(rect:Rect(size:Size(width:50, height:50)))
     
-   
+//commit   
 //    var character : Character
     
     init() {
