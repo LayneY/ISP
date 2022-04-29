@@ -9,23 +9,28 @@ import Igis
 
 class InteractionLayer : Layer, KeyDownHandler {
 
+    var platforms : [Platform] = []
+    
     let platform = Platform(rect:Rect(size:Size(width:500, height:10)))
     
     var character : Character
     
     init() {
-        self.character = Character(platforms:platform)
+        // append all platforms to array before character init
+        platforms.append(platform)
+        self.character = Character(platforms:platforms)
           // Using a meaningful name can be helpful for debugging
         super.init(name:"Interaction")
         
           insert(entity: character, at: .front)
 
-          insert(entity: platform, at: .front)              
+          insert(entity: platform, at: .front)
+          
           // We insert our RenderableEntities in the constructor
 
       }
       override func preSetup(canvasSize:Size, canvas:Canvas) {
-          platform.move(to:Point(x: 0, y:350))
+          platforms[0].move(to:Point(x: 0, y:350))
           dispatcher.registerKeyDownHandler(handler:self)
       }
 
