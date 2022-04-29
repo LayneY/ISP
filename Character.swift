@@ -33,8 +33,8 @@ class Character : RenderableEntity {
     
     var boundingRect : Rect
 
-    var platforms : Platform
-    init(platforms:Platform) {
+    var platforms : [Platform]
+    init(platforms:[Platform]) {
         guard let imageURL = URL(string:"https://codermerlin.com/users/layne-yarbrough/ISPImages/character1-removebg-preview.png") else {
             fatalError("character failed to load")
         }
@@ -142,6 +142,7 @@ class Character : RenderableEntity {
             
             isJumping = false
         }
+        print(isTouchingPlatform())
         /*
         if isJumping && isOnPlatform() {
             if charY <= self.lowestAllowableY - 125 {
@@ -180,16 +181,18 @@ class Character : RenderableEntity {
     }
 
     func moveForward() {
-        increaseIndex()
+        if !isTouchingPlatform() {
+            increaseIndex()
 
-        frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY))
-        frames[1].renderMode = .destinationPoint(Point(x:charX+19,y:charY))
-        frames[3].renderMode = .destinationPoint(Point(x:charX-2,y:charY))
-        //frames[1].renderMode = .destinationPoint(Point(x:charX,y:30))
-        frames[2].renderMode = .destinationPoint(Point(x:charX+19,y:charY))
-        frames[4].renderMode = .destinationPoint(Point(x:charX-2,y:charY))
-        charX += 10
-        forward = true
+            frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY))
+            frames[1].renderMode = .destinationPoint(Point(x:charX+19,y:charY))
+            frames[3].renderMode = .destinationPoint(Point(x:charX-2,y:charY))
+            //frames[1].renderMode = .destinationPoint(Point(x:charX,y:30))
+            frames[2].renderMode = .destinationPoint(Point(x:charX+19,y:charY))
+            frames[4].renderMode = .destinationPoint(Point(x:charX-2,y:charY))
+            charX += 10
+            forward = true
+        }
     }
 
     func moveBackward() {
@@ -206,11 +209,12 @@ class Character : RenderableEntity {
     }
 
     func jump() {
-        self.veloY = -self.jumpVelocity
-        frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY-10))
-        charY -= 10
-        self.isJumping = true
-
+        if isOnPlatform(){
+            self.veloY = -self.jumpVelocity
+            frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY-10))
+            charY -= 10
+            self.isJumping = true
+        }
     }
 
     func setDestPoint(images:[Image], destPoint:Point) {
@@ -231,15 +235,66 @@ class Character : RenderableEntity {
           }else{
               return false
               }**/
-        let plat1Rect = platforms.getPlatformBoundingRect()
+//        let plat1Rect = platforms.getPlatformBoundingRect()
 //        print("char")
   //      print(getBoundingRect().topLeft.y + 146)
     //    print("plat")
       //  print(plat1Rect.topLeft.y)
-        if getBoundingRect().topLeft.x + 50 <= plat1Rect.topLeft.x + 500 && getBoundingRect().topLeft.y + 146 >= plat1Rect.topLeft.y {
+        
+
+        //for plat in self.platforms {
+        /*var rect = platforms[0].getPlatformBoundingRect()
+            if getBoundingRect().topLeft.x + 50 <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.y + 146 >= rect.topLeft.y {
+                return true
+            }else{
+                return false
+            }
+        rect = platforms[1].getPlatformBoundingRect()
+            if getBoundingRect().topLeft.x + 50 <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.y + 146 >= rect.topLeft.y {
+                return true
+            }else{
+                return false
+                }**/
+/*        let rect = platforms[0].getPlatformBoundingRect()
+        let rect2 = platforms[1].getPlatformBoundingRect()
+        if getBoundingRect().topLeft.x + 50 <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.x + 50 >= rect.topLeft.x && getBoundingRect().topLeft.y + 146 >= rect.topLeft.y && getBoundingRect().topLeft.y + 130 <= rect.topLeft.y + rect.size.height{
+            return true
+        }else if getBoundingRect().topLeft.x + 50 <= rect2.topLeft.x + rect2.size.width && getBoundingRect().topLeft.x + 50 >= rect2.topLeft.x && getBoundingRect().topLeft.y + 146 >= rect2.topLeft.y && getBoundingRect().topLeft.y + 130 <= rect2.topLeft.y + rect2.size.height{
             return true
         }else{
             return false
+            }**/
+        //}
+        //return false
+        for plat in platforms {
+            let rect = plat.getPlatformBoundingRect()
+            if getBoundingRect().topLeft.x + 50 <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.x + 50 >= rect.topLeft.x && getBoundingRect().topLeft.y + 146 >= rect.topLeft.y && getBoundingRect().topLeft.y + 130 <= rect.topLeft.y + rect.size.height {
+                return true
+            }
         }
+        return false
+    }
+
+    func isTouchingPlatform() -> Bool {
+        /*let rect = platforms[0].getPlatformBoundingRect()
+        let rect2 = platforms[1].getPlatformBoundingRect()
+        if getBoundingRect().topLeft.x + 75 >= rect.topLeft.x && getBoundingRect().topLeft.y + 120 >= rect.topLeft.y && getBoundingRect().topLeft.y <= rect.topLeft.y {
+            
+            print("touching 1")
+            return true
+        }else if getBoundingRect().topLeft.x + 75 >= rect2.topLeft.x && getBoundingRect().topLeft.y + 120 >= rect2.topLeft.y && getBoundingRect().topLeft.y <= rect2.topLeft.y {
+            
+            print("touching 2")
+            return true
+        }else{
+            return false
+            }**/
+        for plat in platforms {
+            let rect = plat.getPlatformBoundingRect()
+            if getBoundingRect().topLeft.x + 75 >= rect.topLeft.x && getBoundingRect().topLeft.y + 120 >= rect.topLeft.y && getBoundingRect().topLeft.y <= rect.topLeft.y {
+                return true
+            }
+        }
+        return false
     }
 }
