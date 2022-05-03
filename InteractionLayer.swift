@@ -21,8 +21,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     let platform8 = Platform(rect:Rect(size:Size(width:100, height:50)))
     let platform9 = Platform(rect:Rect(size:Size(width:50, height:50)))
     
-//commit   
-//    var character : Character
+    var character : Character
     
     init() {
         // append all platforms to array before character init
@@ -30,11 +29,11 @@ class InteractionLayer : Layer, KeyDownHandler {
         //platforms.append(platform2)
         //platforms.append(platform3)
         
-  //      self.character = Character(platforms:platforms)
+        self.character = Character(platforms:platforms)
           // Using a meaningful name can be helpful for debugging
         super.init(name:"Interaction")
         
-    //      insert(entity: character, at: .front)
+          insert(entity: character, at: .front)
         for index in platforms {
             insert(entity: index, at: .front)
         }
@@ -61,13 +60,13 @@ class InteractionLayer : Layer, KeyDownHandler {
 
       func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
           if key == "d" {
-      //        character.moveForward()
+              character.moveForward()
           
           }else if key == "a" {
-        //      character.moveBackward()
+              character.moveBackward()
           }
           if code == "Space" {
-          //    character.jump()
+              character.jump()
           }
           
       }
