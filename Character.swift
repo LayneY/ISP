@@ -32,7 +32,7 @@ class Character : RenderableEntity {
     let jumpVelocity = 10
     
     var boundingRect : Rect
-
+    var initialY = 0
     var platforms : [Platform]
     init(platforms:[Platform]) {
         guard let imageURL = URL(string:"https://codermerlin.com/users/layne-yarbrough/ISPImages/character1-removebg-preview.png") else {
@@ -73,7 +73,7 @@ class Character : RenderableEntity {
             revFrames.append(revChar3)
         }
        
-        self.charY = 210
+        self.charY = 500
         self.lowestAllowableY = 200
         self.veloY = self.jumpVelocity
         destPoint = Point(x:charX,y:charY)
@@ -92,9 +92,9 @@ class Character : RenderableEntity {
     }
 
     override func render(canvas:Canvas) {
-        let clearRect = Rect(topLeft:Point(x:0, y:0), size:canvas.canvasSize!)
-        let clearRectangle = Rectangle(rect:clearRect, fillMode:.clear)
-        canvas.render(clearRectangle)
+//        let clearRect = Rect(topLeft:Point(x:0, y:0), size:canvas.canvasSize!)
+  //      let clearRectangle = Rectangle(rect:clearRect, fillMode:.clear)
+    //    canvas.render(clearRectangle)
         if forward {
             if index != 0 {
                 if frames[index].isReady {
@@ -132,17 +132,18 @@ class Character : RenderableEntity {
 
     override func calculate(canvasSize:Size) {
         if !isOnPlatform() {
-            if charY <= self.lowestAllowableY - 150 {
+            if charY <= self.initialY - 120 {
                 veloY = self.jumpVelocity
             }
             charY += veloY
             destPoint = Point(x:charX,y:charY)
             frames[0].renderMode = .destinationPoint(destPoint)
+            revFrames[0].renderMode = .destinationPoint(destPoint)
         }else if isOnPlatform() && veloY >= 5 {
             
             isJumping = false
         }
-        print(isTouchingPlatform())
+
         /*
         if isJumping && isOnPlatform() {
             if charY <= self.lowestAllowableY - 125 {
@@ -181,7 +182,7 @@ class Character : RenderableEntity {
     }
 
     func moveForward() {
-        if !isTouchingPlatform() {
+        if !isPlatformInFrontOf() {
             increaseIndex()
 
             frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY))
@@ -190,22 +191,24 @@ class Character : RenderableEntity {
             //frames[1].renderMode = .destinationPoint(Point(x:charX,y:30))
             frames[2].renderMode = .destinationPoint(Point(x:charX+19,y:charY))
             frames[4].renderMode = .destinationPoint(Point(x:charX-2,y:charY))
-            charX += 10
+            charX += 20
             forward = true
         }
     }
 
     func moveBackward() {
-        increaseRevIndex()
-        
-        revFrames[0].renderMode = .destinationPoint(Point(x:charX,y:charY))
-        revFrames[1].renderMode = .destinationPoint(Point(x:charX+46,y:charY))
-        revFrames[3].renderMode = .destinationPoint(Point(x:charX+55,y:charY))
-        //revFrames[1].renderMode = .destinationPoint(Point(x:charX,y:30))
-        revFrames[2].renderMode = .destinationPoint(Point(x:charX+46,y:charY))
-        revFrames[4].renderMode = .destinationPoint(Point(x:charX+55,y:charY))
-        charX -= 10
-        forward = false
+        if !isPlatformBehind() {
+            increaseRevIndex()
+            
+            revFrames[0].renderMode = .destinationPoint(Point(x:charX,y:charY))
+            revFrames[1].renderMode = .destinationPoint(Point(x:charX+46,y:charY))
+            revFrames[3].renderMode = .destinationPoint(Point(x:charX+55,y:charY))
+            //revFrames[1].renderMode = .destinationPoint(Point(x:charX,y:30))
+            revFrames[2].renderMode = .destinationPoint(Point(x:charX+46,y:charY))
+            revFrames[4].renderMode = .destinationPoint(Point(x:charX+55,y:charY))
+            charX -= 20
+            forward = false
+        }
     }
 
     func jump() {
@@ -213,6 +216,7 @@ class Character : RenderableEntity {
             self.veloY = -self.jumpVelocity
             frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY-10))
             charY -= 10
+            self.initialY = charY
             self.isJumping = true
         }
     }
@@ -268,7 +272,7 @@ class Character : RenderableEntity {
         //return false
         for plat in platforms {
             let rect = plat.getPlatformBoundingRect()
-            if getBoundingRect().topLeft.x + 50 <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.x + 50 >= rect.topLeft.x && getBoundingRect().topLeft.y + 146 >= rect.topLeft.y && getBoundingRect().topLeft.y + 130 <= rect.topLeft.y + rect.size.height {
+            if getBoundingRect().topLeft.x + 50 <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.x + 100 >= rect.topLeft.x && getBoundingRect().topLeft.y + 146 >= rect.topLeft.y && getBoundingRect().topLeft.y + 130 <= rect.topLeft.y + 5 {
                 return true
             }
         }
@@ -292,6 +296,32 @@ class Character : RenderableEntity {
         for plat in platforms {
             let rect = plat.getPlatformBoundingRect()
             if getBoundingRect().topLeft.x + 75 >= rect.topLeft.x && getBoundingRect().topLeft.y + 120 >= rect.topLeft.y && getBoundingRect().topLeft.y <= rect.topLeft.y {
+                return true
+             }
+/*
+            let containment = rect.containment(target:getBoundingRect())
+            let containSet : ContainmentSet = [.beyondHorizontally]
+            if containSet.isSubset(of:containment) {
+                return true
+            }*/
+        }
+        return false
+    }
+
+    func isPlatformInFrontOf() -> Bool {
+        for plat in platforms {
+            let rect = plat.getPlatformBoundingRect()
+            if getBoundingRect().topLeft.x + 75 >= rect.topLeft.x && getBoundingRect().topLeft.x + 75 <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.y + 120 >= rect.topLeft.y && getBoundingRect().topLeft.y <= rect.topLeft.y {
+                return true
+            }
+        }
+        return false
+    }
+
+    func isPlatformBehind() -> Bool {
+        for plat in platforms {
+            let rect = plat.getPlatformBoundingRect()
+            if getBoundingRect().topLeft.x <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.x >= rect.topLeft.x && getBoundingRect().topLeft.y + 100 >= rect.topLeft.y && getBoundingRect().topLeft.y <= rect.topLeft.y {
                 return true
             }
         }
