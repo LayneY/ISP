@@ -25,14 +25,15 @@ class InteractionLayer : Layer, KeyDownHandler {
     let platform7 = Platform(rect:Rect(size:Size(width:50, height:50)))
     let platform8 = Platform(rect:Rect(size:Size(width:100, height:50)))
     let platform9 = Platform(rect:Rect(size:Size(width:50, height:50)))
-
-    
+    let platform10 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    let platform11 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    let platform12 = Platform(rect:Rect(size:Size(width:0, height:0)))
     
     var character : Character
     
     init() {
         // append all platforms to array before character init
-        platforms.append(contentsOf:[platform, platform2, platform3, platform4, platform5, platform6, platform7, platform8, platform9])
+        platforms.append(contentsOf:[platform, platform2, platform3, platform4, platform5, platform6, platform7, platform8, platform9, platform10, platform11, platform12])
 
         //platforms.append(platform2)
         //platforms.append(platform3)
@@ -58,17 +59,25 @@ class InteractionLayer : Layer, KeyDownHandler {
           platforms[3].setSize(size: Size(width: canvasSize.width / 25, height: Int(Double(canvasSize.height) / 6.5)))
           platforms[4].setSize(size: Size(width: canvasSize.width / 25, height: Int(Double(canvasSize.height) / 4.33)))
           platforms[5].setSize(size: Size(width: Int(Double(canvasSize.width) / 1.11) , height: canvasSize.height / 50))
-
-
+          platforms[6].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+          platforms[7].setSize(size: Size(width: canvasSize.width / 12, height: canvasSize.height / 16))
+          platforms[8].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+          platforms[9].setSize(size: Size(width: canvasSize.width / 12, height: canvasSize.height / 16))
+          platforms[10].setSize(size: Size(width: canvasSize.width / 12, height: canvasSize.height / 16))
+          platforms[11].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+          
           platforms[0].move(to:Point(x: 0, y:canvasSize.height - 25))
           platforms[1].move(to:Point(x: canvasSize.width / 3, y:canvasSize.height - 78))
           platforms[2].move(to:Point(x: canvasSize.width - 380,y: canvasSize.height - 100))
           platforms[3].move(to:Point(x: canvasSize.width - 230,y: canvasSize.height - 172))
           platforms[4].move(to:Point(x: canvasSize.width - 80,y: canvasSize.height - 246))
           platforms[5].move(to:Point(x: 0, y:canvasSize.height - 325))
-          platforms[6].move(to:Point(x: Int(Double(canvasSize.width) * 0.666), y: canvasSize.height / 2))
-          platforms[7].move(to:Point(x: Int(Double(canvasSize.width) * 0.666) - 200, y: canvasSize.height / 2 - 20))
-          platforms[8].move(to:Point(x: Int(Double(canvasSize.width) * 0.666) - 350, y: canvasSize.height / 2 - 20))
+          platforms[6].move(to:Point(x: Int(Double(canvasSize.width) * 0.666), y: canvasSize.height / 2 + 50))
+          platforms[7].move(to:Point(x: Int(Double(canvasSize.width) * 0.666) - 250, y: canvasSize.height / 2 - 20))
+          platforms[8].move(to:Point(x: Int(Double(canvasSize.width) * 0.666) - 400, y: canvasSize.height / 2 - 20))
+          platforms[9].move(to:Point(x: canvasSize.width / 2 - 350, y: canvasSize.height / 2 + 50))
+          platforms[10].move(to:Point(x: canvasSize.width / 2 - 600, y: canvasSize.height / 2 - 20))
+          platforms[11].move(to:Point(x: canvasSize.width + 50, y: canvasSize.height / 2 - 20))
           dispatcher.registerKeyDownHandler(handler:self)
      }
 
