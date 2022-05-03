@@ -21,6 +21,11 @@ class Platform: RenderableEntity {
     func move(to point:Point) {
         rectangle.rect.topLeft = point
     }
+
+    func setSize(size:Size) {
+        rectangle.rect.size = size
+    }
+    
     func getPlatformBoundingRect() -> Rect {
         return self.platformBoundingRect
     }
