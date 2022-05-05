@@ -143,7 +143,8 @@ class Character : RenderableEntity {
             
             isJumping = false
         }
-
+        print("CharX: \(charX)")
+        //print("CharY: \(charY)")
         /*
         if isJumping && isOnPlatform() {
             if charY <= self.lowestAllowableY - 125 {
@@ -197,7 +198,7 @@ class Character : RenderableEntity {
     }
 
     func moveBackward() {
-        if !isPlatformBehind() {
+//        if !isPlatformBehind() {
             increaseRevIndex()
             
             revFrames[0].renderMode = .destinationPoint(Point(x:charX,y:charY))
@@ -209,13 +210,13 @@ class Character : RenderableEntity {
             charX -= 20
             forward = false
         }
-    }
+  //  }
 
     func jump() {
         if isOnPlatform(){
             self.veloY = -self.jumpVelocity
-            frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY-10))
-            charY -= 10
+            frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY-5))
+            charY -= 5
             self.initialY = charY
             self.isJumping = true
         }
@@ -272,7 +273,7 @@ class Character : RenderableEntity {
         //return false
         for plat in platforms {
             let rect = plat.getPlatformBoundingRect()
-            if getBoundingRect().topLeft.x + 50 <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.x + 100 >= rect.topLeft.x && getBoundingRect().topLeft.y + 146 >= rect.topLeft.y && getBoundingRect().topLeft.y + 130 <= rect.topLeft.y + 5 {
+            if getBoundingRect().topLeft.x + 35 <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.x + 100 >= rect.topLeft.x && getBoundingRect().topLeft.y + 146 >= rect.topLeft.y && getBoundingRect().topLeft.y + 130 <= rect.topLeft.y + 2 {
                 return true
             }
         }
@@ -321,7 +322,7 @@ class Character : RenderableEntity {
     func isPlatformBehind() -> Bool {
         for plat in platforms {
             let rect = plat.getPlatformBoundingRect()
-            if getBoundingRect().topLeft.x <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.x >= rect.topLeft.x && getBoundingRect().topLeft.y + 100 >= rect.topLeft.y && getBoundingRect().topLeft.y <= rect.topLeft.y {
+            if getBoundingRect().topLeft.x <= rect.topLeft.x + rect.size.width && getBoundingRect().topLeft.x >= rect.topLeft.x && getBoundingRect().topLeft.y + 100 >= rect.topLeft.y {
                 return true
             }
         }
