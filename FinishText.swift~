@@ -1,0 +1,19 @@
+import Igis
+import Scenes
+
+class FinishText : RenderableEntity {
+    var text : Text
+    var character : Character
+    init(character:Character) {
+        self.character = character
+    }
+
+    override func render(canvas:Canvas) {
+        if character.isFinished {
+              let finishText : Text
+              finishText = Text(location:Point(x:canvas.size.center - 20,y:canvas.size.center - 20), text:"YOU WON!")
+              let fill = FillStyle(color:Color(.black))
+              canvas.render(fill,finishText)
+        }
+    }
+}

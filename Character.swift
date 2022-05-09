@@ -35,6 +35,9 @@ class Character : RenderableEntity {
     var initialY = 0
     var platforms : [Platform]
     var lavas : [Lava]
+
+    var isFinished = false
+    
     init(platforms:[Platform], lavas:[Lava]) {
         guard let imageURL = URL(string:"https://codermerlin.com/users/layne-yarbrough/ISPImages/character1-removebg-preview.png") else {
             fatalError("character failed to load")
@@ -75,7 +78,8 @@ class Character : RenderableEntity {
             revChar3 = Image(sourceURL:URL(string:"https://codermerlin.com/users/layne-yarbrough/ISPImages/character3back-removebg-preview.png")!)
             revFrames.append(revChar3)
         }
-       
+
+        //init values
         self.charY = 650
         self.lowestAllowableY = 200
         self.veloY = self.jumpVelocity
@@ -155,32 +159,15 @@ class Character : RenderableEntity {
             destPoint = Point(x:charX,y:charY)
             frames[0].renderMode = .destinationPoint(destPoint)
             revFrames[0].renderMode = .destinationPoint(destPoint)
+        }else if isOnFinish(canvasSize:canvasSize) {
+            self.isFinished = true
         }
-        //print("CharX: \(charX)")
-        //print("CharY: \(charY)")
-        /*
-        if isJumping && isOnPlatform() {
-            if charY <= self.lowestAllowableY - 125 {
-                veloY += self.jumpVelocity
-            }
-            
-            charY += veloY
-            destPoint = Point(x:charX, y:charY)
-            //print(charY)
-            frames[0].renderMode = .destinationPoint(destPoint)
-//            self.isJumping = false
-        }else{
-            charY = 204
-            destPoint = Point(x:charX, y:charY)
-            frames[0].renderMode = .destinationPoint(destPoint)
-            self.isJumping = false
-        }**/
-        //print(isOnPlatform())
 
         //update bounding rect
         self.boundingRect = Rect(topLeft:Point(x:charX,y:charY), size:Size(width:133,height:146))
     }
-
+    
+    //increase the index of frames
     func increaseIndex() {
         if index >= 4 {
             index = 0
@@ -188,7 +175,8 @@ class Character : RenderableEntity {
             index += 1
         }
     }
-
+    
+    //increase backwards frame array
     func increaseRevIndex() {
         if revIndex >= 4 {
             revIndex = 0
@@ -214,7 +202,6 @@ class Character : RenderableEntity {
     }
 
     func moveBackward() {
-//        if !isPlatformBehind() {
             increaseRevIndex()
             
             revFrames[0].renderMode = .destinationPoint(Point(x:charX,y:charY))
@@ -226,11 +213,10 @@ class Character : RenderableEntity {
             charX -= 20
             forward = false
         }
-  //  }
 
     func jump() {
         if isOnPlatform(){
-            //sets veocity to up
+            //sets velocity to up
             self.veloY = -self.jumpVelocity
             frames[0].renderMode = .destinationPoint(Point(x:charX,y:charY-5))
             charY -= 5
@@ -239,6 +225,7 @@ class Character : RenderableEntity {
         }
     }
 
+    //function to move the character
     func setDestPoint(images:[Image], destPoint:Point) {
         for img in images {
             img.renderMode = .destinationPoint(destPoint)
@@ -249,6 +236,7 @@ class Character : RenderableEntity {
         return self.boundingRect
     }
 
+    //checks to see if character bounding rect is beyond the bounding rect of all the platforms
     func isOnPlatform() -> Bool{
         
         for plat in platforms {
@@ -260,6 +248,7 @@ class Character : RenderableEntity {
         return false
     }
 
+    //checks if character is on lava
     func isOnLava() -> Bool {
         for lava in lavas {
             let lavaRect = lava.getBoundingRect()
@@ -272,30 +261,11 @@ class Character : RenderableEntity {
     }
 
     func isTouchingPlatform() -> Bool {
-        /*let rect = platforms[0].getPlatformBoundingRect()
-        let rect2 = platforms[1].getPlatformBoundingRect()
-        if getBoundingRect().topLeft.x + 75 >= rect.topLeft.x && getBoundingRect().topLeft.y + 120 >= rect.topLeft.y && getBoundingRect().topLeft.y <= rect.topLeft.y {
-            
-            print("touching 1")
-            return true
-        }else if getBoundingRect().topLeft.x + 75 >= rect2.topLeft.x && getBoundingRect().topLeft.y + 120 >= rect2.topLeft.y && getBoundingRect().topLeft.y <= rect2.topLeft.y {
-            
-            print("touching 2")
-            return true
-        }else{
-            return false
-            }**/
         for plat in platforms {
             let rect = plat.getPlatformBoundingRect()
             if getBoundingRect().topLeft.x + 75 >= rect.topLeft.x && getBoundingRect().topLeft.y + 120 >= rect.topLeft.y && getBoundingRect().topLeft.y <= rect.topLeft.y {
                 return true
              }
-/*
-            let containment = rect.containment(target:getBoundingRect())
-            let containSet : ContainmentSet = [.beyondHorizontally]
-            if containSet.isSubset(of:containment) {
-                return true
-            }*/
         }
         return false
     }
@@ -322,6 +292,17 @@ class Character : RenderableEntity {
         return false
     }
 
+    //if character is on finish
+    func isOnFinish(canvasSize:Size) -> Bool {
+        if charX > canvasSize.width / 2 + 700 && charY <= canvasSize.height / 4 {
+            self.isFinished = true
+            return true
+        }else{
+            return false
+        }
+    }
+
+    //move the character
     func move(x:Int,y:Int) {
         charX = x
         charY = y

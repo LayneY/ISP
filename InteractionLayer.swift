@@ -52,6 +52,8 @@ class InteractionLayer : Layer, KeyDownHandler {
     let lava2 = Lava()
     //third floor lava
     let lava3 = Lava()
+
+    let finishText : FinishText
     
     init() {
         // append all platforms to array before character init
@@ -64,6 +66,8 @@ class InteractionLayer : Layer, KeyDownHandler {
         //init character with platforms and lava
         self.character = Character(platforms:platforms,lavas:lavas)
 
+        self.finishText = FinishText(character: self.character)
+        
           // Using a meaningful name can be helpful for debugging
         super.init(name:"Interaction")
 
@@ -77,6 +81,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         for index in lavas {
             insert(entity: index, at:.front)
         }
+        insert(entity: finishText, at:.front)
 
     }
     
@@ -153,22 +158,23 @@ class InteractionLayer : Layer, KeyDownHandler {
 
       override func postTeardown() {
           dispatcher.unregisterKeyDownHandler(handler:self)
-      }      
+      }
 
       func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
           //key handler
-          if key == "d" || code == "ArrowRight" {
+          if (key == "d" || code == "ArrowRight") && !character.isFinished {
               character.moveForward()
           
-          }else if key == "a" || code == "ArrowLeft" {
+          }else if (key == "a" || code == "ArrowLeft") && !character.isFinished {
               character.moveBackward()
-          }else if key == "p" {
-              //debug key for moving character to next level
-              character.move(x:100,y:300)
-              
           }
+          //else if key == "p" {
+              //debug key for moving character to next level
+            //  character.move(x:1400,y:100)
+              
+          //}
           //jump key handler
-          if code == "Space" || code == "ArrowUp" || key == "w" {
+          if (code == "Space" || code == "ArrowUp" || key == "w") && !character.isFinished{
               character.jump()
           }
           
