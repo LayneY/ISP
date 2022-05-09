@@ -8,7 +8,7 @@ import Igis
 
 
 class InteractionLayer : Layer, KeyDownHandler {
-    //creates array for platforms
+    //creates array for the platforms
     var platforms : [Platform] = []
 
     //first floor
