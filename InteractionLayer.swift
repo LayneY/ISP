@@ -28,6 +28,18 @@ class InteractionLayer : Layer, KeyDownHandler {
     let platform10 = Platform(rect:Rect(size:Size(width:0, height:0)))
     let platform11 = Platform(rect:Rect(size:Size(width:0, height:0)))
     let platform12 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    let platform13 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    //third floor
+    let platform14 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    //final jump sequence
+    let platform15 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    let platform16 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    let platform17 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    let platform18 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    let platform19 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    let platform20 = Platform(rect:Rect(size:Size(width:0, height:0)))
+    //finish
+    let finish = Platform(rect:Rect(size:Size(width:0, height:0)))
     
     var character : Character
 
@@ -38,7 +50,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     
     init() {
         // append all platforms to array before character init
-        platforms.append(contentsOf:[platform, platform2, platform3, platform4, platform5, platform6, platform7, platform8, platform9, platform10, platform11, platform12])
+        platforms.append(contentsOf:[platform, platform2, platform3, platform4, platform5, platform6, platform7, platform8, platform9, platform10, platform11, platform12, platform13, platform14, platform15, platform16, platform17, platform18, platform19, platform20, finish])
 
         //append lavas to array before character init
         lavas.append(contentsOf:[lava1,lava2,lava3])
@@ -64,37 +76,72 @@ class InteractionLayer : Layer, KeyDownHandler {
     
     override func preSetup(canvasSize:Size, canvas:Canvas) {
         //move platforms and lava into right positions
-          platforms[0].setSize(size: Size(width: canvasSize.width, height: canvasSize.height / 50))
-          platforms[1].setSize(size: Size(width: canvasSize.width / 6, height: canvasSize.height / 18))
-          platforms[2].setSize(size: Size(width: canvasSize.width / 25, height: canvasSize.height / 13))
-          platforms[3].setSize(size: Size(width: canvasSize.width / 25, height: Int(Double(canvasSize.height) / 6.5)))
-          platforms[4].setSize(size: Size(width: canvasSize.width / 25, height: Int(Double(canvasSize.height) / 4.33)))
-          platforms[5].setSize(size: Size(width: Int(Double(canvasSize.width) / 1.11) , height: canvasSize.height / 50)) //second level
-          platforms[6].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
-          platforms[7].setSize(size: Size(width: canvasSize.width / 12, height: canvasSize.height / 16))
-          platforms[8].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
-          platforms[9].setSize(size: Size(width: canvasSize.width / 12, height: canvasSize.height / 16))
-          platforms[10].setSize(size: Size(width: canvasSize.width / 12, height: canvasSize.height / 16))
-          platforms[11].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
-          
-          platforms[0].move(to:Point(x: 0, y:canvasSize.height - 25)) //base level
-          platforms[1].move(to:Point(x: canvasSize.width / 3, y:canvasSize.height - 78)) //first obstacle
-          platforms[2].move(to:Point(x: canvasSize.width - 380,y: canvasSize.height - 100)) //tower 1
-          platforms[3].move(to:Point(x: canvasSize.width - 230,y: canvasSize.height - 172)) //tower 2
-          platforms[4].move(to:Point(x: canvasSize.width - 80,y: canvasSize.height - 246)) //tower 3
-          platforms[5].move(to:Point(x: 0, y:canvasSize.height - 325)) //second level
-          platforms[6].move(to:Point(x: Int(Double(canvasSize.width) * 0.666), y: canvasSize.height / 2 + 50))
-          platforms[7].move(to:Point(x: Int(Double(canvasSize.width) * 0.666) - 250, y: canvasSize.height / 2 - 20))
-          platforms[8].move(to:Point(x: Int(Double(canvasSize.width) * 0.666) - 400, y: canvasSize.height / 2 - 20))
-          platforms[9].move(to:Point(x: canvasSize.width / 2 - 350, y: canvasSize.height / 2 + 50))
-          platforms[10].move(to:Point(x: canvasSize.width / 2 - 600, y: canvasSize.height / 2 - 20))
-          platforms[11].move(to:Point(x: canvasSize.width + 50, y: canvasSize.height / 2 - 20))
-
-          lavas[0].move(to:Point(x:0,y:canvasSize.height - 325))
-          lavas[0].setSize(size:Size(width:Int(Double(canvasSize.width) / 1.52),height:canvasSize.height / 50))
-          lavas[1].move(to: Point(x:canvasSize.width - 300,y:canvasSize.height - 25))
-          lavas[1].setSize(size:Size(width:canvasSize.width / 6, height:canvasSize.height / 50))
-          
+        //first floor
+        platforms[0].setSize(size: Size(width: canvasSize.width, height: canvasSize.height / 50))
+        //first jump
+        platforms[1].setSize(size: Size(width: canvasSize.width / 6, height: canvasSize.height / 18))
+        //staircase jump
+        platforms[2].setSize(size: Size(width: canvasSize.width / 25, height: canvasSize.height / 13))
+        platforms[3].setSize(size: Size(width: canvasSize.width / 25, height: Int(Double(canvasSize.height) / 6.5)))
+        platforms[4].setSize(size: Size(width: canvasSize.width / 25, height: Int(Double(canvasSize.height) / 4.33)))
+        //second floor
+        platforms[5].setSize(size: Size(width: Int(Double(canvasSize.width) / 1.11) , height: canvasSize.height / 50)) //second level
+        //floating jump sequence
+        platforms[6].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+        platforms[7].setSize(size: Size(width: canvasSize.width / 12, height: canvasSize.height / 16))
+        platforms[8].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+        platforms[9].setSize(size: Size(width: canvasSize.width / 12, height: canvasSize.height / 16))
+        platforms[10].setSize(size: Size(width: canvasSize.width / 12, height: canvasSize.height / 16))
+        platforms[11].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+        platforms[12].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+        //third floor
+        platforms[13].setSize(size: Size(width: Int(Double(canvasSize.width) / 1.11), height: canvasSize.height / 50))
+        //final jump sequence
+        platforms[14].setSize(size: Size(width: canvasSize.width / 12, height: canvasSize.height / 16))
+        platforms[15].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+        platforms[16].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+        platforms[17].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+        platforms[18].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+        platforms[19].setSize(size: Size(width: canvasSize.width / 30, height: canvasSize.height / 16))
+        //finish
+        platforms[20].setSize(size: Size(width: canvasSize.width / 7, height: canvasSize.height / 16))
+        
+        //first floor
+        platforms[0].move(to:Point(x: 0, y:canvasSize.height - 25)) 
+        //first jump
+        platforms[1].move(to:Point(x: canvasSize.width / 3, y:canvasSize.height - 78)) 
+        //staircase jump
+        platforms[2].move(to:Point(x: canvasSize.width - 380,y: canvasSize.height - 100)) 
+        platforms[3].move(to:Point(x: canvasSize.width - 230,y: canvasSize.height - 172)) 
+        platforms[4].move(to:Point(x: canvasSize.width - 80,y: canvasSize.height - 246)) 
+        //second floor
+        platforms[5].move(to:Point(x: 0, y:canvasSize.height - 325)) 
+        //floating jump sequence
+        platforms[6].move(to:Point(x: Int(Double(canvasSize.width) * 0.666), y: canvasSize.height / 2 + 50))
+        platforms[7].move(to:Point(x: Int(Double(canvasSize.width) * 0.666) - 250, y: canvasSize.height / 2 + 50))
+        platforms[8].move(to:Point(x: Int(Double(canvasSize.width) * 0.666) - 400, y: canvasSize.height / 2 + 50))
+        platforms[9].move(to:Point(x: canvasSize.width / 2 - 350, y: canvasSize.height / 2 + 50))
+        platforms[10].move(to:Point(x: canvasSize.width / 2 - 600, y: canvasSize.height / 2 - 20))
+        platforms[11].move(to:Point(x: canvasSize.width / 4 - 300, y: canvasSize.height / 2 - 20))
+        platforms[12].move(to:Point(x: canvasSize.width / 4 - 450, y: canvasSize.height / 2 - 100))
+        //third floor
+        platforms[13].move(to:Point(x: 0 + canvasSize.width / 10, y: canvasSize.height / 2 - 200))
+        //final jump sequence
+        platforms[14].move(to:Point(x: canvasSize.width / 4 - 100, y: canvasSize.height / 4))
+        platforms[15].move(to:Point(x: canvasSize.width / 3 , y: canvasSize.height / 4 ))
+        platforms[16].move(to:Point(x: canvasSize.width / 3 + 200, y: canvasSize.height / 4))
+        platforms[17].move(to:Point(x: canvasSize.width / 2 + 100, y: canvasSize.height / 4))
+        platforms[18].move(to:Point(x: canvasSize.width / 2 + 300, y: canvasSize.height / 4))
+        platforms[19].move(to:Point(x: canvasSize.width / 2 + 500, y: canvasSize.height / 4))
+        //finish
+        platforms[20].move(to:Point(x: canvasSize.width / 2 + 700, y: canvasSize.height / 4))
+        
+        lavas[0].move(to:Point(x:0,y:canvasSize.height - 325))
+        lavas[0].setSize(size:Size(width:Int(Double(canvasSize.width) / 1.52),height:canvasSize.height / 50))
+        lavas[1].move(to: Point(x:canvasSize.width - 300,y:canvasSize.height - 25))
+        lavas[1].setSize(size:Size(width:canvasSize.width / 6, height:canvasSize.height / 50))
+        lavas[2].move(to:Point(x: 0 + canvasSize.width / 7, y: canvasSize.height / 2 - 200))
+        lavas[2].setSize(size:Size(width: Int(Double(canvasSize.width) / 1.11), height: canvasSize.height / 50))
           dispatcher.registerKeyDownHandler(handler:self)
      }
 
