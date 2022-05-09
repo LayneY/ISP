@@ -51,28 +51,28 @@ class Background : RenderableEntity {
         
         if let canvasSize = canvas.canvasSize{
             //vars to propotionalize sun height on all screens
-            var canvasHeight: Double = Double(canvasSize.height)
-            var SunHDiv: Double = 3.23666
-            var SunHPos: Double = canvasHeight/SunHDiv
+            let canvasHeight: Double = Double(canvasSize.height)
+            let SunHDiv: Double = 3.23666
+            let SunHPos: Double = canvasHeight/SunHDiv
 
             
             //vars to propotionalize sun width on all screens
-            var canvasWidth: Double = Double(canvasSize.width)
-            var SunWDiv: Double = 2.02751
-            var SunWPos: Double = canvasWidth/SunWDiv
+            let canvasWidth: Double = Double(canvasSize.width)
+            let SunWDiv: Double = 2.02751
+            let SunWPos: Double = canvasWidth/SunWDiv
 
             
             //vars to propotionalize sun radius on all screens
-            var SunRDiv: Double = 13.5642
-            var SunR: Double = canvasWidth/SunRDiv
+            let SunRDiv: Double = 13.5642
+            let SunR: Double = canvasWidth/SunRDiv
 
             
             //vars to propotionalize the turtle sun effects on all screens
-            var turtleNumRDiv: Double = 47.9
-            var turtleNumR: Double = canvasWidth/turtleNumRDiv
+            let turtleNumRDiv: Double = 47.9
+            let turtleNumR: Double = canvasWidth/turtleNumRDiv
 
-            var turtleFDiv: Double = 10.2
-            var turtleF: Double = canvasWidth/turtleFDiv
+            let turtleFDiv: Double = 10.2
+            let turtleF: Double = canvasWidth/turtleFDiv
 
             
             //light blue background
@@ -113,18 +113,18 @@ class Background : RenderableEntity {
 
           
             //vars to propotionalize mountian 1 on all screens
-            var mW1Divy: Double = 1.899
-            var mW2Divx: Double = 3.95625
-            var mW2Divy: Double = 6.1258
-            var mW3Divx: Double = 1.978125
-            var mW3Divy: Double = 1.899
-            var mW4Divy: Double = 1.899
-            var mW1y: Double = canvasWidth/mW1Divy
-            var mW2x: Double = canvasWidth/mW2Divx
-            var mW2y: Double = canvasWidth/mW2Divy
-            var mW3x: Double = canvasWidth/mW3Divx
-            var mW3y: Double = canvasWidth/mW3Divy
-            var mW4y: Double = canvasWidth/mW4Divy
+            let mW1Divy: Double = 1.899
+            let mW2Divx: Double = 3.95625
+            let mW2Divy: Double = 6.1258
+            let mW3Divx: Double = 1.978125
+            let mW3Divy: Double = 1.899
+            let mW4Divy: Double = 1.899
+            let mW1y: Double = canvasWidth/mW1Divy
+            let mW2x: Double = canvasWidth/mW2Divx
+            let mW2y: Double = canvasWidth/mW2Divy
+            let mW3x: Double = canvasWidth/mW3Divx
+            let mW3y: Double = canvasWidth/mW3Divy
+            let mW4y: Double = canvasWidth/mW4Divy
           
             //mountain 1
             let lineWidthM = LineWidth(width:7)
@@ -141,27 +141,27 @@ class Background : RenderableEntity {
             
             
             //vars to propotionalize snow cap 1 on all screens
-            var sW1Divx: Double = 5.504
-            var sW1Divy: Double = 3.7235
-            var sW2Divx: Double = 3.95625
-            var sW2Divy: Double = 6.02857
-            var sW3Divx: Double = 3.087
-            var sW3Divy: Double = 3.7235
-            var sW4Divx: Double = 4.7475
-            var sW4Divy: Double = 3.7235 
-            var sW1x: Double = canvasWidth/sW1Divx
-            var sW1y: Double = canvasWidth/sW1Divy
-            var sW2x: Double = canvasWidth/sW2Divx
-            var sW2y: Double = canvasWidth/sW2Divy
-            var sW3x: Double = canvasWidth/sW3Divx
-            var sW3y: Double = canvasWidth/sW3Divy
-            var sW4x: Double = canvasWidth/sW4Divx
-            var sW4y: Double = canvasWidth/sW4Divy
-          
+            let sW1Divx: Double = 5.504
+            let sW1Divy: Double = 3.7235
+            let sW2Divx: Double = 3.95625
+            let sW2Divy: Double = 6.02857
+            let sW3Divx: Double = 3.087
+            let sW3Divy: Double = 3.7235
+            let sW4Divx: Double = 4.7475
+            let sW4Divy: Double = 3.7235 
+            let sW1x: Double = canvasWidth/sW1Divx
+            let sW1y: Double = canvasWidth/sW1Divy
+            let sW2x: Double = canvasWidth/sW2Divx
+            let sW2y: Double = canvasWidth/sW2Divy
+            let sW3x: Double = canvasWidth/sW3Divx
+            let sW3y: Double = canvasWidth/sW3Divy
+            let sW4x: Double = canvasWidth/sW4Divx
+            let sW4y: Double = canvasWidth/sW4Divy
+            
             //snow cap 1
             let lineWidthS = LineWidth(width:1)
             let fillStyleS = FillStyle(color:Color(.ghostwhite))
-             let strokeStyleS  = StrokeStyle(color:Color(.floralwhite))
+            let strokeStyleS  = StrokeStyle(color:Color(.floralwhite))
             let linesS = Path(fillMode: .fillAndStroke)
             linesS.moveTo(Point(x:Int(sW1x), y:Int(sW1y)))       
             linesS.lineTo(Point(x:Int(sW2x), y:Int(sW2y)))
@@ -173,22 +173,22 @@ class Background : RenderableEntity {
 
             
             //vars to propotionalize mountian 3 on all screens
-            var m3W1Divx: Double = 1.266
-            var m3W1Divy: Double = 1.899
-            var m3W2Divx: Double = 1.0264
-            var m3W2Divy: Double = 5.4257
-            var m3W3Divx: Double = 0.90428
-            var m3W3Divy: Double = 1.899
-            var m3W4Divx: Double = 1.266
-            var m3W4Divy: Double = 1.899 
-            var m3W1x: Double = canvasWidth/m3W1Divx
-            var m3W1y: Double = canvasWidth/m3W1Divy
-            var m3W2x: Double = canvasWidth/m3W2Divx
-            var m3W2y: Double = canvasWidth/m3W2Divy
-            var m3W3x: Double = canvasWidth/m3W3Divx
-            var m3W3y: Double = canvasWidth/m3W3Divy
-            var m3W4x: Double = canvasWidth/m3W4Divx
-            var m3W4y: Double = canvasWidth/m3W4Divy
+            let m3W1Divx: Double = 1.266
+            let m3W1Divy: Double = 1.899
+            let m3W2Divx: Double = 1.0264
+            let m3W2Divy: Double = 5.4257
+            let m3W3Divx: Double = 0.90428
+            let m3W3Divy: Double = 1.899
+            let m3W4Divx: Double = 1.266
+            let m3W4Divy: Double = 1.899 
+            let m3W1x: Double = canvasWidth/m3W1Divx
+            let m3W1y: Double = canvasWidth/m3W1Divy
+            let m3W2x: Double = canvasWidth/m3W2Divx
+            let m3W2y: Double = canvasWidth/m3W2Divy
+            let m3W3x: Double = canvasWidth/m3W3Divx
+            let m3W3y: Double = canvasWidth/m3W3Divy
+            let m3W4x: Double = canvasWidth/m3W4Divx
+            let m3W4y: Double = canvasWidth/m3W4Divy
 
             //mountain 3
             let lineWidthM3 = LineWidth(width:7)
@@ -205,22 +205,22 @@ class Background : RenderableEntity {
 
             
             //vars to propotionalize snow cap 3 on all screens
-            var s3W1Divx: Double = 1.0839
-            var s3W1Divy: Double = 3.51666
-            var s3W2Divx: Double = 0.988
-            var s3W2Divy: Double = 3.51666
-            var s3W3Divx: Double = 1.02648
-            var s3W3Divy: Double = 5.3492
-            var s3W4Divx: Double = 1.0839
-            var s3W4Divy: Double = 3.51666 
-            var s3W1x: Double = canvasWidth/s3W1Divx
-            var s3W1y: Double = canvasWidth/s3W1Divy
-            var s3W2x: Double = canvasWidth/s3W2Divx
-            var s3W2y: Double = canvasWidth/s3W2Divy
-            var s3W3x: Double = canvasWidth/s3W3Divx
-            var s3W3y: Double = canvasWidth/s3W3Divy
-            var s3W4x: Double = canvasWidth/s3W4Divx
-            var s3W4y: Double = canvasWidth/s3W4Divy
+            let s3W1Divx: Double = 1.0839
+            let s3W1Divy: Double = 3.51666
+            let s3W2Divx: Double = 0.988
+            let s3W2Divy: Double = 3.51666
+            let s3W3Divx: Double = 1.02648
+            let s3W3Divy: Double = 5.3492
+            let s3W4Divx: Double = 1.0839
+            let s3W4Divy: Double = 3.51666 
+            let s3W1x: Double = canvasWidth/s3W1Divx
+            let s3W1y: Double = canvasWidth/s3W1Divy
+            let s3W2x: Double = canvasWidth/s3W2Divx
+            let s3W2y: Double = canvasWidth/s3W2Divy
+            let s3W3x: Double = canvasWidth/s3W3Divx
+            let s3W3y: Double = canvasWidth/s3W3Divy
+            let s3W4x: Double = canvasWidth/s3W4Divx
+            let s3W4y: Double = canvasWidth/s3W4Divy
             
             //snow cap 3
             let lineWidthS3 = LineWidth(width:1)
@@ -237,22 +237,22 @@ class Background : RenderableEntity {
 
             
             //vars to propotionalize mountian 2 on all screens
-            var m2W1Divx: Double = 3.95625
-            var m2W1Divy: Double = 1.899
-            var m2W2Divx: Double = 1.5825
-            var m2W2Divy: Double = 3.4527
-            var m2W3Divx: Double = 1.11705
-            var m2W3Divy: Double = 1.899
-            var m2W4Divx: Double = 3.95625
-            var m2W4Divy: Double = 1.899 
-            var m2W1x: Double = canvasWidth/m2W1Divx
-            var m2W1y: Double = canvasWidth/m2W1Divy
-            var m2W2x: Double = canvasWidth/m2W2Divx
-            var m2W2y: Double = canvasWidth/m2W2Divy
-            var m2W3x: Double = canvasWidth/m2W3Divx
-            var m2W3y: Double = canvasWidth/m2W3Divy
-            var m2W4x: Double = canvasWidth/m2W4Divx
-            var m2W4y: Double = canvasWidth/m2W4Divy
+            let m2W1Divx: Double = 3.95625
+            let m2W1Divy: Double = 1.899
+            let m2W2Divx: Double = 1.5825
+            let m2W2Divy: Double = 3.4527
+            let m2W3Divx: Double = 1.11705
+            let m2W3Divy: Double = 1.899
+            let m2W4Divx: Double = 3.95625
+            let m2W4Divy: Double = 1.899 
+            let m2W1x: Double = canvasWidth/m2W1Divx
+            let m2W1y: Double = canvasWidth/m2W1Divy
+            let m2W2x: Double = canvasWidth/m2W2Divx
+            let m2W2y: Double = canvasWidth/m2W2Divy
+            let m2W3x: Double = canvasWidth/m2W3Divx
+            let m2W3y: Double = canvasWidth/m2W3Divy
+            let m2W4x: Double = canvasWidth/m2W4Divx
+            let m2W4y: Double = canvasWidth/m2W4Divy
 
             //mountain 2
             let lineWidthM2 = LineWidth(width:7)
@@ -269,22 +269,22 @@ class Background : RenderableEntity {
 
             
             //vars to propotionalize snow cap 2 on all screens
-            var s2W1Divx: Double = 1.6865
-            var s2W1Divy: Double = 3.165
-            var s2W2Divx: Double = 1.5192
-            var s2W2Divy: Double = 3.165
-            var s2W3Divx: Double = 1.5825
-            var s2W3Divy: Double = 3.421621
-            var s2W4Divx: Double = 1.6865
-            var s2W4Divy: Double = 3.165 
-            var s2W1x: Double = canvasWidth/s2W1Divx
-            var s2W1y: Double = canvasWidth/s2W1Divy
-            var s2W2x: Double = canvasWidth/s2W2Divx
-            var s2W2y: Double = canvasWidth/s2W2Divy
-            var s2W3x: Double = canvasWidth/s2W3Divx
-            var s2W3y: Double = canvasWidth/s2W3Divy
-            var s2W4x: Double = canvasWidth/s2W4Divx
-            var s2W4y: Double = canvasWidth/s2W4Divy
+            let s2W1Divx: Double = 1.6865
+            let s2W1Divy: Double = 3.165
+            let s2W2Divx: Double = 1.5192
+            let s2W2Divy: Double = 3.165
+            let s2W3Divx: Double = 1.5825
+            let s2W3Divy: Double = 3.421621
+            let s2W4Divx: Double = 1.6865
+            let s2W4Divy: Double = 3.165 
+            let s2W1x: Double = canvasWidth/s2W1Divx
+            let s2W1y: Double = canvasWidth/s2W1Divy
+            let s2W2x: Double = canvasWidth/s2W2Divx
+            let  s2W2y: Double = canvasWidth/s2W2Divy
+            let s2W3x: Double = canvasWidth/s2W3Divx
+            let s2W3y: Double = canvasWidth/s2W3Divy
+            let s2W4x: Double = canvasWidth/s2W4Divx
+            let s2W4y: Double = canvasWidth/s2W4Divy
 
             //snow cap 2
             let lineWidthS2 = LineWidth(width:1)
