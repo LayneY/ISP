@@ -113,7 +113,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         platforms[20].setSize(size: Size(width: canvasSize.width / 7, height: canvasSize.height / 16))
         
         //first floor
-        platforms[0].move(to:Point(x: 0, y:canvasSize.height - 25)) 
+        platforms[0].move(to:Point(x: 0, y:Int(Double(canvasSize.height) * 0.9755))) 
         //first jump
         platforms[1].move(to:Point(x: canvasSize.width / 3, y:canvasSize.height - 78)) 
         //staircase jump
