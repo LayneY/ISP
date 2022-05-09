@@ -8,7 +8,7 @@ import Igis
 
 
 class InteractionLayer : Layer, KeyDownHandler {
-
+    //creates array for platforms
     var platforms : [Platform] = []
 
     //first floor
@@ -40,12 +40,17 @@ class InteractionLayer : Layer, KeyDownHandler {
     let platform20 = Platform(rect:Rect(size:Size(width:0, height:0)))
     //finish
     let finish = Platform(rect:Rect(size:Size(width:0, height:0)))
-    
+
+    //sets for var for character
     var character : Character
 
+    //creates lava array
     var lavas : [Lava] = []
+    //staricase lava
     let lava1 = Lava()
+    //second floor lava
     let lava2 = Lava()
+    //third floor lava
     let lava3 = Lava()
     
     init() {
@@ -62,12 +67,13 @@ class InteractionLayer : Layer, KeyDownHandler {
           // Using a meaningful name can be helpful for debugging
         super.init(name:"Interaction")
 
-        //insert our platforms, character, and lava
+        //insert our platforms
         for index in platforms {
             insert(entity: index, at: .front)
         }
-
+        //inserts our character
         insert(entity: character, at: .front)
+        //inserts our lava
         for index in lavas {
             insert(entity: index, at:.front)
         }
@@ -158,9 +164,10 @@ class InteractionLayer : Layer, KeyDownHandler {
               character.moveBackward()
           }else if key == "p" {
               //debug key for moving character to next level
-              character.move(x:1000,y:300)
+              character.move(x:100,y:300)
               
           }
+          //jump key handler
           if code == "Space" || code == "ArrowUp" || key == "w" {
               character.jump()
           }
